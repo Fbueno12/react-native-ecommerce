@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 
+import Icon from "react-native-vector-icons/dist/MaterialIcons";
 import { formatPrice } from "../../util/format";
 
 import api from "../../services/api";
+import Header from "../../components/Header";
 
 import {
     Container,
@@ -19,6 +21,10 @@ import {
 } from "./styles";
 
 export default class Main extends Component {
+    static navigationOptions = {
+        header: <Header />
+    };
+
     state = {
         products: []
     };
@@ -51,7 +57,13 @@ export default class Main extends Component {
 
                             <Button>
                                 <ItemAmount>
-                                    <WhiteText>4</WhiteText>
+                                    <Icon
+                                        name="shopping-cart"
+                                        type="MaterialIcons"
+                                        color="white"
+                                        size={18}
+                                    />
+                                    <WhiteText>0</WhiteText>
                                 </ItemAmount>
                                 <TextButton>ADICIONAR</TextButton>
                             </Button>
