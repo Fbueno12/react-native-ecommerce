@@ -1,12 +1,64 @@
-import React from "react";
-import { Text } from "react-native";
+import React, { Component } from "react";
 
-import { Container } from "./styles";
+import { formatPrice } from "../../util/format";
 
-export default function Main() {
-    return (
-        <Container>
-            <Text>Hello World!</Text>
-        </Container>
-    );
+import api from "../../services/api";
+
+import {
+    Container,
+    Description,
+    DescriptionText,
+    Product,
+    Price,
+    Image,
+    Button,
+    TextButton,
+    ItemAmount,
+    WhiteText,
+    List
+} from "./styles";
+
+export default class Main extends Component {
+    state = {
+        products: []
+    };
+
+    async componentDidMount() {
+        const response = await api.get("products");
+        if (response) {
+            const data = response.data.map(product => ({
+                ...product,
+                priceFormatted: formatPrice(product.price)
+            }));
+            this.setState({ products: data });
+        }
+    }
+
+    render() {
+        const { products } = this.state;
+        return (
+            <Container>
+                <List
+                    data={products}
+                    keyExtractor={product => String(product.id)}
+                    renderItem={({ item }) => (
+                        <Product>
+                            <Image source={{ uri: item.image }} />
+                            <Description>
+                                <DescriptionText>{item.title}</DescriptionText>
+                                <Price>{item.priceFormatted}</Price>
+                            </Description>
+
+                            <Button>
+                                <ItemAmount>
+                                    <WhiteText>4</WhiteText>
+                                </ItemAmount>
+                                <TextButton>ADICIONAR</TextButton>
+                            </Button>
+                        </Product>
+                    )}
+                />
+            </Container>
+        );
+    }
 }
