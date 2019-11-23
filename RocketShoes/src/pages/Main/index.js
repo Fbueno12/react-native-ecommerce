@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import PropTypes from "prop-types";
+
 import Icon from "react-native-vector-icons/dist/MaterialIcons";
 import { formatPrice } from "../../util/format";
 
@@ -25,6 +27,12 @@ export default class Main extends Component {
         header: <Header />
     };
 
+    static propTypes = {
+        navigation: PropTypes.shape({
+            navigate: PropTypes.func
+        }).isRequired
+    };
+
     state = {
         products: []
     };
@@ -39,6 +47,12 @@ export default class Main extends Component {
             this.setState({ products: data });
         }
     }
+
+    handleNavigate = item => {
+        const { navigation } = this.props;
+
+        navigation.navigate("Cart", { item });
+    };
 
     render() {
         const { products } = this.state;
@@ -55,7 +69,7 @@ export default class Main extends Component {
                                 <Price>{item.priceFormatted}</Price>
                             </Description>
 
-                            <Button>
+                            <Button onPress={() => this.handleNavigate(item)}>
                                 <ItemAmount>
                                     <Icon
                                         name="shopping-cart"
