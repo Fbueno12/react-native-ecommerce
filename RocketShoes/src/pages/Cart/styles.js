@@ -87,7 +87,7 @@ export const Button = styled(RectButton)`
     background: #7159c1;
     width: 90%;
     padding: 10px;
-    margin-top: 20px;
+    margin-top: 30px;
 `;
 export const TextButton = styled.Text`
     color: #fff;

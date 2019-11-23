@@ -21,11 +21,11 @@ export const Imagem = styled.Image`
 `;
 
 export const AmountCircle = styled.Text`
-    font-size: 10px;
+    font-size: 12px;
     color: #fff;
     background: #7159c1;
-    width: 15px;
-    height: 15px;
+    width: 16px;
+    height: 16px;
     text-align: center;
     border-radius: 7.5px;
     transform: translateY(-10px);
